@@ -72,6 +72,8 @@ class TheBoy extends SpriteAnimationComponent
       _velocity.x = _horizontalDirection * _moveSpeed;
     }
 
+    position += _velocity * dt;
+
     if ((_horizontalDirection < 0 && scale.x > 0) ||
         (_horizontalDirection > 0 && scale.x < 0)) {
       flipHorizontally();
