@@ -74,6 +74,9 @@ class TheBoy extends SpriteAnimationComponent
 
     position += _velocity * dt;
 
+    // check if the current direction (the arrow the user is pressing)
+    // is different from the direction of the sprite, then we flip the
+    // sprite along the horizontal axis.
     if ((_horizontalDirection < 0 && scale.x > 0) ||
         (_horizontalDirection > 0 && scale.x < 0)) {
       flipHorizontally();
