@@ -7,8 +7,10 @@ import 'package:flame_tiled/flame_tiled.dart';
 import '../actors/the_boy.dart';
 import '../assets.dart' as assets;
 import '../objects/background.dart';
+import '../objects/platform.dart';
 
-class PlatformerGame extends FlameGame with HasKeyboardHandlerComponents {
+class PlatformerGame extends FlameGame
+    with HasKeyboardHandlerComponents, HasCollisionDetection {
   late final double mapWidth;
   late final double mapHeight;
 
@@ -26,6 +28,8 @@ class PlatformerGame extends FlameGame with HasKeyboardHandlerComponents {
 
     add(ParallaxBackground(size: Vector2(mapWidth, mapHeight)));
     add(level);
+
+    spawnObjects(level.tileMap);
 
     final theBoy = TheBoy(
       position: Vector2(128, mapHeight - 64),
@@ -50,5 +54,18 @@ class PlatformerGame extends FlameGame with HasKeyboardHandlerComponents {
   @override
   Color backgroundColor() {
     return const Color.fromARGB(255, 69, 186, 230);
+  }
+
+  void spawnObjects(RenderableTiledMap tileMap) {
+    final platforms = tileMap.getLayer<ObjectGroup>("Platforms");
+
+    for (final platform in platforms!.objects) {
+      add(
+        Platform(
+          Vector2(platform.x, platform.y),
+          Vector2(platform.width, platform.height),
+        ),
+      );
+    }
   }
 }
