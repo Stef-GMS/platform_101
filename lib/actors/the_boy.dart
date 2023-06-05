@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../assets.dart' as assets;
 import '../game/game.dart';
+import '../objects/coin.dart';
 import '../objects/platform.dart';
 
 class TheBoy extends SpriteAnimationComponent
@@ -198,6 +199,15 @@ class TheBoy extends SpriteAnimationComponent
     }
 
     super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Coin) {
+      other.collect();
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override
